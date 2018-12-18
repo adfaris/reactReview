@@ -30,8 +30,27 @@ class App extends Component {
         {/* // render name */}
         {name}
         {/* // map through array and print title */}
-        {list.map(function(item) {
-          return (
+        {/* {list.map(function(item) { */}
+        {list.map(item =>
+          <div key={item.objectID}>
+            <span>
+              <a href={item.url}>
+                {item.title}
+              </a>
+            </span>
+
+            <span>
+              {item.author}
+            </span>
+            <span>
+              {item.num_comments}
+            </span>
+            <span>
+              {item.points}
+            </span>
+          </div>,
+        )}
+        {/* return (
             <div>
               <span>
                 <a href={item.url}>
@@ -48,8 +67,7 @@ class App extends Component {
                 {' '}{item.objectID}
               </span>
             </div>
-          )
-        })}
+          ) */}
       </div>
     )
   }
