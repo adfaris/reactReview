@@ -19,19 +19,36 @@ const list = [
     objectID: 1,
   },
 ]
+const newstate = ['John']
 class App extends Component {
+  constructor(props) {
+    super()
+    this.state = {
+      list,
+      name,
+      newstate,
+    }
+    this.onDismiss = this.onDismiss.bind(this)
+
+    onDismiss = id => {
+      const isNotId = item => item.objectID !== id
+      const updatedList = this.state.list.filter(isNotId)
+    }
+  }
   render() {
     // const name = ['AD Faris', 'John', 'Dina']
     // const helloworld = 'Welcome to the road to react'
 
     // helloworld.text = 'bye bye'
+    console.log('props', this.props)
     return (
       <div className="App">
-        {/* // render name */}
-        {name}
-        {/* // map through array and print title */}
-        {/* {list.map(function(item) { */}
-        {list.map(item =>
+        {this.state.name.map(name =>
+          <li key={name + name}>
+            {name}
+          </li>,
+        )}
+        {this.state.list.map(item =>
           <div key={item.objectID}>
             <span>
               <a href={item.url}>
@@ -48,10 +65,23 @@ class App extends Component {
             <span>
               {item.points}
             </span>
+            <span>
+              <button
+                onClick={() => this.onDismiss(item.objectID)}
+                type="button"
+              >
+                Dismiss
+              </button>
+            </span>
           </div>,
         )}
+        {this.state.newstate.map(newstates =>
+          <ul key={newstates + newstates}>
+            {newstates}
+          </ul>,
+        )},
         {/* return (
-            <div>
+          <div>
               <span>
                 <a href={item.url}>
                   {' '}{item.title}
