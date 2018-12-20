@@ -22,18 +22,29 @@ const list = [
 const newstate = ['John']
 class App extends Component {
   constructor(props) {
-    super()
+    super(props)
     this.state = {
       list,
       name,
       newstate,
     }
     this.onDismiss = this.onDismiss.bind(this)
-
-    onDismiss = id => {
-      const isNotId = item => item.objectID !== id
-      const updatedList = this.state.list.filter(isNotId)
-    }
+  }
+  // onDismiss(id) {
+  //   function isNotId(item) {
+  //     return item.objectID !== id
+  //   }
+  //   const updatedList = this.state.list.filter(isNotId)
+  //   this.setState({ list: updatedList })
+  // }
+  // onDismiss(id) {
+  //   const isNotId = item => item.objectID !== id
+  //   const updatedList = this.state.list.filter(isNotId)
+  //   this.setState({ list: updatedList })
+  // }
+  onDismiss(id) {
+    const updatedList = this.state.list.filter(item => item.objectID !== id)
+    this.setState({ list: updatedList })
   }
   render() {
     // const name = ['AD Faris', 'John', 'Dina']
