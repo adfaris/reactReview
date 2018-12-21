@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
+import ExplainBindingsComponent from './Components/ExplainBindingsComponent'
 const name = ['Dina', 'Love', 'Snukum']
 const list = [
   {
@@ -30,6 +31,7 @@ class App extends Component {
     }
     this.onDismiss = this.onDismiss.bind(this)
   }
+  //ES5 syntax
   // onDismiss(id) {
   //   function isNotId(item) {
   //     return item.objectID !== id
@@ -51,9 +53,10 @@ class App extends Component {
     // const helloworld = 'Welcome to the road to react'
 
     // helloworld.text = 'bye bye'
-    console.log('props', this.props)
+    // console.log('props', this.props)
     return (
       <div className="App">
+        <ExplainBindingsComponent />
         {this.state.name.map(name =>
           <li key={name + name}>
             {name}
@@ -78,7 +81,10 @@ class App extends Component {
             </span>
             <span>
               <button
-                onClick={() => this.onDismiss(item.objectID)}
+                // onClick={() => this.onDismiss(item.objectID)}
+                onClick={function() {
+                  console.log(item.objectID)
+                }}
                 type="button"
               >
                 Dismiss
