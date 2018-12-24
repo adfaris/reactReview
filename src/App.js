@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import ExplainBindingsComponent from './Components/ExplainBindingsComponent'
+
 const name = ['Dina', 'Love', 'Snukum']
 const list = [
   {
@@ -21,6 +22,22 @@ const list = [
   },
 ]
 const newstate = ['John']
+
+function isSearched(searchTerm) {
+  return function(item) {
+    return item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  }
+}
+
+// function isSearched(name) {
+//   return function(item) {
+//     return item.name.toLowerCase().includes(name.toLowerCase())
+//   }
+// }
+// const isSearched = searchTerm => term => {
+//   return item.title.toLowerCase().includes(searchTerm.toLowerCase())
+// }
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -28,8 +45,9 @@ class App extends Component {
       list,
       name,
       newstate,
+      searchTerm: '',
     }
-    this.onDismiss = this.onDismiss.bind(this)
+    // this.onDismiss = this.onDismiss.bind(this)
   }
   //ES5 syntax
   // onDismiss(id) {
@@ -44,9 +62,18 @@ class App extends Component {
   //   const updatedList = this.state.list.filter(isNotId)
   //   this.setState({ list: updatedList })
   // }
-  onDismiss(id) {
+  onDismiss = id => {
     const updatedList = this.state.list.filter(item => item.objectID !== id)
     this.setState({ list: updatedList })
+  }
+  // onSearchChange = event => {
+  //   event.preventDefault()
+  //   this.setState({ searchTerm: event.target.value })
+  // }
+
+  onSearchChange = event => {
+    event.preventDefault()
+    this.setState({ searchTerm: event.target.value })
   }
   render() {
     // const name = ['AD Faris', 'John', 'Dina']
@@ -54,15 +81,21 @@ class App extends Component {
 
     // helloworld.text = 'bye bye'
     // console.log('props', this.props)
+    // destructuring state.
+    const { searchTerm, list } = this.state
+
     return (
       <div className="App">
+        <form>
+          <input type="text" onChange={this.onSearchChange} />
+        </form>
         <ExplainBindingsComponent />
         {this.state.name.map(name =>
           <li key={name + name}>
             {name}
           </li>,
         )}
-        {this.state.list.map(item =>
+        {this.state.list.filter(isSearched(this.state.searchTerm)).map(item =>
           <div key={item.objectID}>
             <span>
               <a href={item.url}>
