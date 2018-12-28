@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import './App.css'
 // import cors from 'cors'
 
-let defaultOptions = {
-  url: '',
-  method: 'GET',
-  mode: 'cors',
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-  },
-  body: null,
-}
+// let defaultOptions = {
+//   url: '',
+//   method: 'GET',
+//   mode: 'cors',
+//   headers: {
+//     'Access-Control-Allow-Origin': '*',
+//   },
+//   body: null,
+// }
 const DEFAULT_QUERY = 'redux'
 
 const PATH_BASE = 'https://hn.algolia.com/api/v1'
@@ -51,8 +51,16 @@ class App extends Component {
       .catch(e => e)
   }
   onDismiss = id => {
-    const updatedList = this.state.list.filter(item => item.objectID !== id)
-    this.setState({ list: updatedList })
+    // const updatedList = this.state.result.hits.filter(
+    //   item => item.objectID !== id,
+    // )
+    // this.setState({ result: updatedList })
+    const isNotID = item => item.objectID !== id
+    const updatedHits = this.state.result.hits.filter(isNotID)
+    this.setState({
+      // result: Object.assign({}, this.state.result, { hits: updatedHits }),
+      result: { ...this.state.result, hits: updatedHits },
+    })
   }
   onSearchChange = event => {
     event.preventDefault()
@@ -60,19 +68,26 @@ class App extends Component {
   }
   render() {
     const { searchTerm, result } = this.state
-    if (!result) {
-      return null
-    }
+    // console.log(result)
+    // if (result === null) {
+    // if (!result) {
+    // return null
+    // }
+    // console.log(result)
     return (
       <div className="App">
         <Search value={searchTerm} onChange={this.onSearchChange}>
           Search
         </Search>
-        <Table
-          list={result.hits}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-        />
+        {result &&
+          // ?
+          <Table
+            list={result.hits}
+            pattern={searchTerm}
+            onDismiss={this.onDismiss}
+          />
+        // : null
+        }
       </div>
     )
   }
