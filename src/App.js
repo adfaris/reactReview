@@ -56,7 +56,7 @@ class App extends Component {
   }
 
   setSearchTopStories(result) {
-    // console.log(result)
+    console.log(result)
     // destruct result and take hits and page info
     const { hits, page } = result
     const { searchKey, results } = this.state
