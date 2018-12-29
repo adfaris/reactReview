@@ -15,6 +15,7 @@ const DEFAULT_QUERY = 'redux'
 const DEFAULT_HPP = '100'
 
 const PATH_BASE = 'https://hn.algolia.com/api/v1'
+// const PATH_BASE = 'https://hn.foobar.com/api/v1'
 const PATH_SEARCH = '/search'
 const PARAM_SEARCH = 'query='
 const PARAM_PAGE = 'page='
@@ -35,6 +36,7 @@ class App extends Component {
       results: null,
       searchKey: '',
       searchTerm: DEFAULT_QUERY,
+      error: null,
     }
     // this.onDismiss = this.onDismiss.bind(this)
     this.setSearchTopStories = this.setSearchTopStories.bind(this)
@@ -85,7 +87,7 @@ class App extends Component {
       // fetch(url)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
-      .catch(e => e)
+      .catch(e => this.setState({ error: e }))
   }
 
   onSearchSubmit = e => {
@@ -122,8 +124,9 @@ class App extends Component {
   }
 
   render() {
-    const { searchTerm, results, searchKey } = this.state
+    const { searchTerm, results, searchKey, error } = this.state
     const page = (results && results[searchKey] && results[searchKey].page) || 0
+    console.log(page, 'page')
     const list =
       (results && results[searchKey] && results[searchKey].hits) || []
     // console.log(results)
@@ -133,6 +136,10 @@ class App extends Component {
     // return null
     // }
     // console.log(result)
+
+    if (error) {
+      return <p>Something went wrong</p>
+    }
     return (
       <div className="App">
         <Search
@@ -142,13 +149,17 @@ class App extends Component {
         >
           Search
         </Search>
-        {results &&
-          // ?
-          <Table
-            list={list}
-            // pattern={searchTerm}
-            onDismiss={this.onDismiss}
-          />
+        {error
+          ? <div>
+              <p>Something went wrong</p>
+            </div>
+          : // {results &&
+            // ?
+            <Table
+              list={list}
+              // pattern={searchTerm}
+              onDismiss={this.onDismiss}
+            />
         // : null
         }
         <div>
@@ -185,7 +196,7 @@ const Table = ({ list, pattern, onDismiss }) =>
   <div>
     {/* {list.filter(isSearched(pattern)).map(item => */}
     {list.map(item =>
-      <div key={item.objectID + item.objectID + item.oldHits}>
+      <div key={item.objectID + 2}>
         <span>
           {' '}<a href={item.url}> {item.title} </a>{' '}
         </span>
