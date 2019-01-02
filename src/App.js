@@ -1,27 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-// import cors from 'cors'
-
-// let defaultOptions = {
-//   url: '',
-//   method: 'GET',
-//   mode: 'cors',
-//   headers: {
-//     'Access-Control-Allow-Origin': '*',
-//   },
-//   body: null,
-// }
-// const DEFAULT_QUERY = 'redux'
-// const DEFAULT_HPP = '100'
-
-// const PATH_BASE = 'https://hn.algolia.com/api/v1'
-// // const PATH_BASE = 'https://hn.foobar.com/api/v1'
-// const PATH_SEARCH = '/search'
-// const PARAM_SEARCH = 'query='
-// const PARAM_PAGE = 'page='
-// const PARAM_HPP = 'hitsPerPage='
-
 import {
   DEFAULT_QUERY,
   DEFAULT_HPP,
