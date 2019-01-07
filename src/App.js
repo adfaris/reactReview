@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import AppRouter from './Components/AppRouter'
+
 import {
   DEFAULT_QUERY,
   DEFAULT_HPP,
@@ -10,7 +11,6 @@ import {
   PARAM_PAGE,
   PARAM_HPP,
 } from './constants/index.js'
-// const url = (`${PATH_BASE} ${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE})`
 
 // function isSearched(searchTerm) {
 //   return function(item) {
@@ -132,6 +132,7 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <AppRouter />
         <Search
           value={searchTerm}
           onChange={this.onSearchChange}
